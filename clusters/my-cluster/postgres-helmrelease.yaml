@@ -22,18 +22,16 @@ spec:
     remediation:
       retries: 3
   values:
-    # Removed the official image override. 
-    # Bitnami will now pull its own compatible image automatically.
     auth:
       username: fluxuser
       password: fluxpassword
       database: fluxdb
+    image:
+      pullPolicy: IfNotPresent        # ← moved to top-level image key
     primary:
       persistence:
         enabled: false
-      image:
-        pullPolicy: IfNotPresent
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: 100m
+      resources:                      # ← resources moved under primary
+        requests:
+          memory: 256Mi
+          cpu: 100m
