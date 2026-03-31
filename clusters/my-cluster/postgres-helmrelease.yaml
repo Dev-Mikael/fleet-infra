@@ -30,6 +30,7 @@ spec:
       database: fluxdb
     image:
       pullPolicy: IfNotPresent
+      tag: latest
     primary:
       persistence:
         enabled: false
