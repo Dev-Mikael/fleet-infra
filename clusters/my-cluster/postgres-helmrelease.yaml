@@ -9,7 +9,9 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: "16.0.0"  # Specific version
+      # Don't hard-pin an old chart; outdated charts can reference image tags
+      # that get pruned upstream, leading to ImagePullBackOff.
+      version: ">=16.0.0"
       sourceRef:
         kind: HelmRepository
         name: bitnami
