@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   interval: 30m
-  timeout: 10m            # ← increase from default 5m
+  timeout: 10m
   chart:
     spec:
       chart: postgresql
@@ -17,11 +17,15 @@ spec:
       interval: 1h
   install:
     remediation:
-      retries: 3          # ← retry on failure
+      retries: 3
   upgrade:
     remediation:
       retries: 3
   values:
+    image:
+      registry: docker.io
+      repository: library/postgres   # ← official postgres image
+      tag: "17"
     auth:
       username: fluxuser
       password: fluxpassword
@@ -30,7 +34,7 @@ spec:
       persistence:
         enabled: false
       image:
-        pullPolicy: IfNotPresent   # ← don't re-pull if already cached
+        pullPolicy: IfNotPresent
     resources:
       requests:
         memory: 256Mi
