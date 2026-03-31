@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: "16.x.x" # Note: Bitnami 16.x.x charts generally deploy Postgres 16. Update this if you strictly need 17.
+      version: "16.x.x"
       sourceRef:
         kind: HelmRepository
         name: bitnami
@@ -27,11 +27,11 @@ spec:
       password: fluxpassword
       database: fluxdb
     image:
-      pullPolicy: IfNotPresent        # ← moved to top-level image key
+      pullPolicy: IfNotPresent
     primary:
       persistence:
         enabled: false
-      resources:                      # ← resources moved under primary
+      resources:
         requests:
           memory: 256Mi
           cpu: 100m
