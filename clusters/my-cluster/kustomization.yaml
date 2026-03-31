@@ -5,3 +5,5 @@ resources:
   - podinfo-source.yaml
   - podinfo-kustomization.yaml
   - nginx-kustomization.yaml
+  - postgres-helmrepo.yaml       
+  - postgres-helmrelease.yaml
