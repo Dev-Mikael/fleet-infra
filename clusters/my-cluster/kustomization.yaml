@@ -4,3 +4,4 @@ resources:
   - flux-system
   - podinfo-source.yaml
   - podinfo-kustomization.yaml
+  - nginx-kustomization.yaml
