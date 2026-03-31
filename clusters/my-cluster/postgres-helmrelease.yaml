@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: "16.x.x"
+      version: "16.x.x" # Note: Bitnami 16.x.x charts generally deploy Postgres 16. Update this if you strictly need 17.
       sourceRef:
         kind: HelmRepository
         name: bitnami
@@ -22,10 +22,8 @@ spec:
     remediation:
       retries: 3
   values:
-    image:
-      registry: docker.io
-      repository: library/postgres   # ← official postgres image
-      tag: "17"
+    # Removed the official image override. 
+    # Bitnami will now pull its own compatible image automatically.
     auth:
       username: fluxuser
       password: fluxpassword
