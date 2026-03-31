@@ -5,6 +5,7 @@ metadata:
   namespace: default
 spec:
   interval: 30m
+  timeout: 10m            # ← increase from default 5m
   chart:
     spec:
       chart: postgresql
@@ -14,6 +15,12 @@ spec:
         name: bitnami
         namespace: flux-system
       interval: 1h
+  install:
+    remediation:
+      retries: 3          # ← retry on failure
+  upgrade:
+    remediation:
+      retries: 3
   values:
     auth:
       username: fluxuser
@@ -21,7 +28,9 @@ spec:
       database: fluxdb
     primary:
       persistence:
-        enabled: false    # disabled for kind/local testing
+        enabled: false
+      image:
+        pullPolicy: IfNotPresent   # ← don't re-pull if already cached
     resources:
       requests:
         memory: 256Mi
