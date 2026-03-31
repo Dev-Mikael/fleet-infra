@@ -19,21 +19,25 @@ spec:
     createNamespace: true
 
   values:
+    ## ✅ Use stable official Postgres image
     image:
       registry: docker.io
-      repository: bitnami/postgresql
-      tag: 16.4.0-debian-12-r0   # ✅ FIXED tag (exists)
+      repository: postgres
+      tag: "15"
 
+    ## ✅ Database config
     auth:
       username: postgres
       password: postgrespassword
       database: mydb
 
+    ## ✅ Persistence (storage)
     primary:
       persistence:
         enabled: true
         size: 8Gi
 
+    ## ✅ Resources
     resources:
       requests:
         cpu: 100m
