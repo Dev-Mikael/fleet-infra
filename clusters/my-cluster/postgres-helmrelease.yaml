@@ -1,40 +1,32 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: postgres
+  name: postgresql
   namespace: default
 spec:
-  interval: 30m
-  timeout: 10m
+  interval: 15m
   chart:
     spec:
       chart: postgresql
-      # Don't hard-pin an old chart; outdated charts can reference image tags
-      # that get pruned upstream, leading to ImagePullBackOff.
-      version: ">=16.0.0"
+      version: "16.x.x" # Use a semver range for automatic patches
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-      interval: 1h
   install:
     remediation:
       retries: 3
   upgrade:
     remediation:
       retries: 3
+  # Helm Values (Refer to Bitnami chart for all options)
   values:
     auth:
-      username: fluxuser
-      password: fluxpassword
-      database: fluxdb
-    image:
-      pullPolicy: IfNotPresent
-      tag: latest
+      database: "my_app_db"
+      username: "db_user"
+      # Best Practice: Use a Kubernetes Secret for passwords instead of plain text
+      existingSecret: "postgresql-credentials" 
     primary:
       persistence:
-        enabled: false
-      resources:
-        requests:
-          memory: 256Mi
-          cpu: 100m
+        enabled: true
+        size: 8Gi
